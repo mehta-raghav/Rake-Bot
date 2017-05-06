@@ -3,6 +3,10 @@ import operator
 import nltk
 import string
 
+from imap import auth
+
+mail = auth()
+body = mail[1]
 
 def isPunct(word):
     return len(word) == 1 and word in string.punctuation
@@ -89,9 +93,8 @@ class RakeKeywordExtractor:
 
 def test():
     rake = RakeKeywordExtractor()
-    keywords = rake.extract("""send me latest tweets of @realdonaldtrump
-  """, incl_scores=True)
-    print keywords
+    keywords = rake.extract(body, incl_scores=True)
+    print (keywords)
 
 
 if __name__ == "__main__":
