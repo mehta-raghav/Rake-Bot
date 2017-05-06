@@ -33,7 +33,7 @@ def mailReader(M):
             return
 
     msg = email.message_from_bytes(data[0][1])
-    hdr = email.header.make_header(email.header.decode_header(msg['Subject']))
+    #hdr = email.header.make_header(email.header.decode_header(msg['Subject']))
     #subject = str(hdr)
     rawEmail = data[0][1]
     email_message = email.message_from_bytes(rawEmail)
