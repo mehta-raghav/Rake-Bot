@@ -1,10 +1,9 @@
 # -*- coding: utf-8 -*-
 
 
-def crawl_twitter():
+def crawl_twitter(username):
     import requests
     from bs4 import BeautifulSoup
-    username = "RealDonaldTrump"
 
     r = requests.get('https://twitter.com/' + username)
 
@@ -19,11 +18,11 @@ def crawl_twitter():
         i = i + 1
 
 
-def crawl_facebook():
+def crawl_facebook(username):
     import requests
     from bs4 import BeautifulSoup
 
-    r = requests.get('https://facebook.com/pg/PaulPogba/posts/?ref=page_internal&mt_nav=1')
+    r = requests.get('https://facebook.com/pg/' +username+ '/posts/?ref=page_internal&mt_nav=1')
 
     soup = BeautifulSoup(r.content, "html.parser")
 
@@ -36,10 +35,9 @@ def crawl_facebook():
         i = i + 1
 
 
-def crawl_youtube():
+def crawl_youtube(username):
     import requests
     from bs4 import BeautifulSoup
-    username = "unboxtherapy"
 
     r = requests.get('https://www.youtube.com/user/' + username + '/videos')
 
@@ -71,8 +69,3 @@ def crawl_trend_youtube():
         print(p.getText())
         i = i + 1
 
-
-crawl_youtube()
-#crawl_trend_youtube()
-#crawl_twitter()
-#crawl_facebook()

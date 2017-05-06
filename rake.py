@@ -5,6 +5,8 @@ import string
 
 from imap import auth
 
+from crawler import crawl_youtube, crawl_facebook, crawl_twitter, crawl_trend_youtube
+
 mail = auth()
 body = mail[1]
 
@@ -18,15 +20,6 @@ def isNumeric(word):
         return True
     except ValueError:
         return False
-
-def load_stop_words(stop_word_file):
-
-    stop_words = []
-    for line in open(stop_word_file):
-        if line.strip()[0:1] != "#":
-            for word in line.split():  # in case more than one per line
-                stop_words.append(word)
-    return stop_words
 
 
 class RakeKeywordExtractor:
@@ -91,11 +84,24 @@ class RakeKeywordExtractor:
                        sorted_phrase_scores[0:int(n_phrases / self.top_fraction)])
 
 
-def test():
+def rake():
     rake = RakeKeywordExtractor()
-    keywords = rake.extract(body, incl_scores=True)
-    print (keywords)
+    keywords = rake.extract(body, incl_scores=False)
+    return (keywords)
 
 
-if __name__ == "__main__":
-    test()
+print (rake()[0])
+
+username = rake()[0]
+
+def func_calling(name):
+    if any("twitter" in s for s in rake()):
+        crawl_twitter(name)
+    elif any("facebook" in s for s in rake()):
+        crawl_facebook(name)
+    elif any("video" in s for s in rake()):
+        crawl_youtube(name)
+    elif any("trend" in s for s in rake()):
+        crawl_trend_youtube(name)
+
+func_calling(username)

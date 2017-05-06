@@ -33,11 +33,11 @@ def mailReader(M):
             print("ERROR getting message", num)
             return
 
-    msg = email.message_from_bytes(data[0][1])
+    msg = email.message_from_string(data[0][1])
     # hdr = email.header.make_header(email.header.decode_header(msg['Subject']))
     # subject = str(hdr)
     rawEmail = data[0][1]
-    email_message = email.message_from_bytes(rawEmail)
+    email_message = email.message_from_string(rawEmail)
     mail = getBody(email_message)
     fromAddrTotal = email.utils.parseaddr(email_message['From'])
     fromAddr = fromAddrTotal[1]
@@ -60,7 +60,7 @@ def auth():
     rv, data = M.select(EMAIL_FOLDER)
     mailstuff = []
     if rv == 'OK':
-        mailStuff = mailReader(M)
+        mailstuff = mailReader(M)
         M.close()
     else:
         print("ERROR: Unable to open mailbox ", rv)
