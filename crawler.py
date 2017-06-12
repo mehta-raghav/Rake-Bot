@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
-
-
+arr=[]
 def crawl_twitter(username):
     import requests
     from bs4 import BeautifulSoup
@@ -9,20 +8,19 @@ def crawl_twitter(username):
 
     soup = BeautifulSoup(r.content, "html.parser")
 
-    tweet = soup.find_all('p', {'class': """TweetTextSize TweetTextSize--16px js-tweet-text tweet-text"""})
+    tweet = soup.find_all('p', {'class': """TweetTextSize TweetTextSize--normal js-tweet-text tweet-text"""})
 
-    i = 1
+    i = 0
     for p in tweet:
-        print(i)
-        print(p.getText())
+        arr.append(p.getText())
         i = i + 1
+    return arr
 
-
-def crawl_facebook(username):
+def crawl_facebook():
     import requests
     from bs4 import BeautifulSoup
 
-    r = requests.get('https://facebook.com/pg/' +username+ '/posts/?ref=page_internal&mt_nav=1')
+    r = requests.get('https://facebook.com/pg/'+username+'/posts/?ref=page_internal&mt_nav=1')
 
     soup = BeautifulSoup(r.content, "html.parser")
 
@@ -30,12 +28,12 @@ def crawl_facebook(username):
 
     i = 1
     for p in fb:
-        print(i)
-        print(p.getText())
+        arr.append(p.getText())
         i = i + 1
-
+    return arr
 
 def crawl_youtube(username):
+    # type: (object) -> object
     import requests
     from bs4 import BeautifulSoup
 
@@ -45,11 +43,11 @@ def crawl_youtube(username):
 
     video = soup.find_all('h3', {'class': """yt-lockup-title"""})
 
-    i = 1
+    i = 0
     for p in video:
-        print(i)
-        print(p.getText())
+        arr.append(p.getText())
         i = i + 1
+    return arr
 
 
 def crawl_trend_youtube():
@@ -63,9 +61,8 @@ def crawl_trend_youtube():
 
     trend = soup.find_all('h3', {'class': """yt-lockup-title"""})
 
-    i = 1
+    i = 0
     for p in trend:
-        print(i)
-        print(p.getText())
+        arr.append(p.getText())
         i = i + 1
-
+    return arr

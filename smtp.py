@@ -1,15 +1,24 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+from imap import auth
+from rake import func_calling
+from rake import rake
 
+name = rake()[1]
+final = func_calling(name)
+toID = auth()[0]
 fromaddr = "subscribe.ai.client@gmail.com"
-toaddr = "prakhar.d9@gmail.com"
+toaddr = toID
 msg = MIMEMultipart()
 msg['From'] = fromaddr
 msg['To'] = toaddr
-msg['Subject'] = "PLEASE REPLY"
+msg['Subject'] = "Response to your query"
 
-body = "This is a smtp server generated mail. Please reply to confirm it has been received"
+
+body = u'\n'.join(final).encode('utf-8').strip()
+
+
 msg.attach(MIMEText(body, 'plain'))
 
 server = smtplib.SMTP('smtp.gmail.com', 587)

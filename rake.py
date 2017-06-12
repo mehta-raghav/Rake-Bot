@@ -8,7 +8,11 @@ from imap import auth
 from crawler import crawl_youtube, crawl_facebook, crawl_twitter, crawl_trend_youtube
 
 mail = auth()
-body = mail[1]
+body = auth()[1]
+
+# body = mail[1]
+
+
 
 def isPunct(word):
     return len(word) == 1 and word in string.punctuation
@@ -86,22 +90,21 @@ class RakeKeywordExtractor:
 
 def rake():
     rake = RakeKeywordExtractor()
-    keywords = rake.extract(body, incl_scores=False)
+    keywords = rake.extract(body, incl_scores = False)
     return (keywords)
 
 
-print (rake()[0])
+list = rake()
 
-username = rake()[0]
 
 def func_calling(name):
-    if any("twitter" in s for s in rake()):
-        crawl_twitter(name)
-    elif any("facebook" in s for s in rake()):
-        crawl_facebook(name)
-    elif any("video" in s for s in rake()):
-        crawl_youtube(name)
-    elif any("trend" in s for s in rake()):
-        crawl_trend_youtube(name)
-
-func_calling(username)
+    if filter(lambda x: 'trend' in x, list):
+        return crawl_trend_youtube()
+    elif filter(lambda x: 'facebook' in x, list):
+        return crawl_facebook(name)
+    elif filter(lambda x: 'video' in x, list):
+        return crawl_youtube(name)
+    elif filter(lambda x: 'tweet' in x, list):
+        return crawl_twitter(name)
+    else:
+        return "We coundn't fullfill your query at the moment!"
