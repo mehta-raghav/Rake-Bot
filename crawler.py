@@ -16,7 +16,7 @@ def crawl_twitter(username):
         i = i + 1
     return arr
 
-def crawl_facebook():
+def crawl_facebook(username):
     import requests
     from bs4 import BeautifulSoup
 
