@@ -33,7 +33,6 @@ def crawl_facebook(username):
     return arr
 
 def crawl_youtube(username):
-    # type: (object) -> object
     import requests
     from bs4 import BeautifulSoup
 
