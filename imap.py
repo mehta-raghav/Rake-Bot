@@ -1,10 +1,7 @@
 import sys
 import imaplib
-import getpass
 import email
 import email.header
-import datetime
-from email.message import Message
 
 EMAIL_ACCOUNT = "subscribe.ai.client@gmail.com"
 
@@ -33,9 +30,6 @@ def mailReader(M):
             print("ERROR getting message", num)
             return
 
-    msg = email.message_from_string(data[0][1])
-    # hdr = email.header.make_header(email.header.decode_header(msg['Subject']))
-    # subject = str(hdr)
     rawEmail = data[0][1]
     email_message = email.message_from_string(rawEmail)
     mail = getBody(email_message)
@@ -55,7 +49,7 @@ def auth():
 
     print(rv, data)
 
-    rv, mailboxes = M.list()
+    #rv, mailboxes = M.list()
 
     rv, data = M.select(EMAIL_FOLDER)
     mailstuff = []

@@ -10,9 +10,6 @@ from crawler import crawl_youtube, crawl_facebook, crawl_twitter, crawl_trend_yo
 mail = auth()
 body = auth()[1]
 
-# body = mail[1]
-
-
 
 def isPunct(word):
     return len(word) == 1 and word in string.punctuation
@@ -29,7 +26,7 @@ def isNumeric(word):
 class RakeKeywordExtractor:
     def __init__(self):
         self.stopwords = set(nltk.corpus.stopwords.words())
-        self.top_fraction = 1  # consider top third candidate keywords by score (sesitivity)
+        self.top_fraction = 1  # consider top third candidate keywords by score (sensitivity)
 
     def _generate_candidate_keywords(self, sentences):
         phrase_list = []
