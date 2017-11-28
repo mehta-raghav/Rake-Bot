@@ -69,18 +69,22 @@ def crawl_youtube_search(query):
 
 
 
+list_trending = ['trend','trending','popular','famous','top']
+list_fb = ['facebook','fb','timeline','post']
+list_twit = ['twitter','tweet']
+list_you = ['youtube','video']
 def func_calling(name, list):
     for x in list.split():
-        if x == 'trend':
+        if x in list_trending:
             return crawl_youtube_search(name[0])
 
-        elif x == 'facebook':
+        elif x in list_fb:
             return crawl_facebook(name[0])
 
-        elif x == 'video':
+        elif x in list_you:
             return crawl_youtube(name[0])
 
-        elif x == 'tweet':
+        elif x in list_twit:
             return crawl_twitter(name[0])
 
         else:
