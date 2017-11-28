@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-arr=[]
 def crawl_twitter(username):
+    arr = []
     import requests
     from bs4 import BeautifulSoup
 
@@ -17,6 +17,7 @@ def crawl_twitter(username):
     return arr
 
 def crawl_facebook(username):
+    arr = []
     import requests
     from bs4 import BeautifulSoup
 
@@ -33,6 +34,7 @@ def crawl_facebook(username):
     return arr
 
 def crawl_youtube(username):
+    arr = []
     import requests
     from bs4 import BeautifulSoup
 
@@ -48,16 +50,16 @@ def crawl_youtube(username):
         i = i + 1
     return arr
 
-
-def crawl_trend_youtube():
+def crawl_youtube_search(query):
+    arr = []
     import requests
     from bs4 import BeautifulSoup
 
-    r = requests.get('https://www.youtube.com/feed/trending')
+    r = requests.get('https://www.youtube.com/results?search_query=' + query)
 
     soup = BeautifulSoup(r.content, "html.parser")
 
-    trend = soup.find_all('a', {'id': """video-title"""})
+    trend = soup.find_all('a', {'class': "yt-uix-tile-link yt-ui-ellipsis yt-ui-ellipsis-2 yt-uix-sessionlink spf-link "})
 
     i = 0
     for p in trend:
@@ -68,13 +70,18 @@ def crawl_trend_youtube():
 
 
 def func_calling(name, list):
-    if filter(lambda x: 'trend' in x, list):
-        return crawl_trend_youtube()
-    elif filter(lambda x: 'facebook' in x, list):
-        return crawl_facebook(name[0])
-    elif filter(lambda x: 'video' in x, list):
-        return crawl_youtube(name[0])
-    elif filter(lambda x: 'tweet' in x, list):
-        return crawl_twitter(name[0])
-    else:
-        return "We couldn't fulfill your query at the moment!"
+    for x in list.split():
+        if x == 'trend':
+            return crawl_youtube_search(name[0])
+
+        elif x == 'facebook':
+            return crawl_facebook(name[0])
+
+        elif x == 'video':
+            return crawl_youtube(name[0])
+
+        elif x == 'tweet':
+            return crawl_twitter(name[0])
+
+        else:
+            return crawl_youtube_search(list)

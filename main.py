@@ -9,11 +9,8 @@ def looper():
     fromname = mailer()[2]
 
     list = rake(query)
-
     body = func_calling(list, query)
-
     sender(fromaddr, body, fromname)
-
 
 
 if __name__ == '__main__':
