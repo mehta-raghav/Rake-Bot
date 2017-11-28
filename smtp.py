@@ -1,11 +1,6 @@
 import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-from rake import func_calling
-from rake import rake
-
-name = rake()[1]
-final = func_calling(name)
 
 def sender(toID, body, name):
     emailaddr = "subscribe.ai.client@gmail.com"
