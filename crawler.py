@@ -50,7 +50,6 @@ def crawl_youtube(username):
 
 
 def crawl_trend_youtube():
-
     import requests
     from bs4 import BeautifulSoup
 
@@ -58,10 +57,24 @@ def crawl_trend_youtube():
 
     soup = BeautifulSoup(r.content, "html.parser")
 
-    trend = soup.find_all('h3', {'class': """yt-lockup-title"""})
+    trend = soup.find_all('a', {'id': """video-title"""})
 
     i = 0
     for p in trend:
         arr.append(p.getText())
         i = i + 1
     return arr
+
+
+
+def func_calling(name, list):
+    if filter(lambda x: 'trend' in x, list):
+        return crawl_trend_youtube()
+    elif filter(lambda x: 'facebook' in x, list):
+        return crawl_facebook(name[0])
+    elif filter(lambda x: 'video' in x, list):
+        return crawl_youtube(name[0])
+    elif filter(lambda x: 'tweet' in x, list):
+        return crawl_twitter(name[0])
+    else:
+        return "We couldn't fulfill your query at the moment!"

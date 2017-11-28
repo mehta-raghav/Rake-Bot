@@ -15,7 +15,7 @@ def sender(toID, body, name):
     msg['To'] = toaddr
     msg['Subject'] = "Hi! " + name + ",here is a response to your query."
 
-    body = u'\n'.join(final).encode('utf-8').strip()
+    body = u'\n'.join(body).encode('utf-8').strip()
 
     msg.attach(MIMEText(body, 'plain'))
 

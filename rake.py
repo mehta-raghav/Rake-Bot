@@ -3,14 +3,6 @@ import operator
 import nltk
 import string
 
-from imap import auth
-
-from crawler import crawl_youtube, crawl_facebook, crawl_twitter, crawl_trend_youtube
-
-mail = auth()
-body = auth()[1]
-
-
 def isPunct(word):
     return len(word) == 1 and word in string.punctuation
 
@@ -85,23 +77,8 @@ class RakeKeywordExtractor:
                        sorted_phrase_scores[0:int(n_phrases / self.top_fraction)])
 
 
-def rake():
+def rake(body):
     rake = RakeKeywordExtractor()
-    keywords = rake.extract(body, incl_scores = False)
+    keywords = rake.extract(body, incl_scores = True)
     return (keywords)
 
-
-list = rake()
-
-
-def func_calling(name):
-    if filter(lambda x: 'trend' in x, list):
-        return crawl_trend_youtube()
-    elif filter(lambda x: 'facebook' in x, list):
-        return crawl_facebook(name)
-    elif filter(lambda x: 'video' in x, list):
-        return crawl_youtube(name)
-    elif filter(lambda x: 'tweet' in x, list):
-        return crawl_twitter(name)
-    else:
-        return "We coundn't fullfill your query at the moment!"
